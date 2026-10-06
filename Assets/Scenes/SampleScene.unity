@@ -809,7 +809,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf5e956a7523544ea4252fa1057b265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  secondsFromStart: 0
+  hp: 100
+  enemy: {fileID: 0}
+  enemies: []
 --- !u!4 &1924279858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1062515801717140587, guid: 965a2dfaedd1a4225a64eeae60e78b91, type: 3}
@@ -827,7 +829,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf5e956a7523544ea4252fa1057b265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
-  secondsFromStart: 0
+  hp: 100
+  enemy: {fileID: 0}
+  enemies: []
 --- !u!1001 &1991143796
 PrefabInstance:
   m_ObjectHideFlags: 0

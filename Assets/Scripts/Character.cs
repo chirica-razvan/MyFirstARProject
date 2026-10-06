@@ -1,22 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Character : MonoBehaviour
 {
     private Animator mAnimator;
-    [SerializeField] private int secondsFromStart = 0;
+    public int hp = 100;
+    private bool attackInProgress = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mAnimator = GetComponent<Animator>();
-        mAnimator.SetTrigger("Attack");
     }
 
     // Update is called once per frame
     void Update()
     { 
-        if(mAnimator!=null)
-            if(Input.GetKeyDown(KeyCode.Space))
+        
+    }
+
+    void MakeAttack(GameObject target)
+    {
+        if(!attackInProgress)
+            if (mAnimator != null)
+            {
+                attackInProgress = true;
                 mAnimator.SetTrigger("Attack");
+            }
+
+        DealDamage(target);
+    }
+
+    void DealDamage(GameObject target)
+    {
+        Character targetScript = target.GetComponent<Character>();
+        while (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack"))
+            targetScript.hp -= 1;
+
+        attackInProgress = false;
     }
 }
