@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="plains_kamigawa_full_art" size="0.063000 0.087980" />
+    <ImageTarget name="full_island_kamigawa" size="0.063000 0.087980" />
+  </Tracking>
+</QCARConfig>

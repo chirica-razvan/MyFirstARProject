@@ -422,7 +422,6 @@ GameObject:
   - component: {fileID: 562322866}
   - component: {fileID: 562322865}
   - component: {fileID: 562322864}
-  - component: {fileID: 562322867}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Untagged
@@ -500,7 +499,7 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 562322867}
+  mPreview: {fileID: 0}
 --- !u!4 &562322866
 Transform:
   m_ObjectHideFlags: 0
@@ -517,25 +516,6 @@ Transform:
   - {fileID: 1924279858}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &562322867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562322863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
-  mObserverBehaviour: {fileID: 562322865}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: full_island_kamigawa
-  mDatasetName: 
-  mCastedBehaviour: {fileID: 562322865}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!4 &697537367 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8631046639345725670, guid: 39abee346835159449a72c88465b676e, type: 3}
@@ -553,7 +533,6 @@ GameObject:
   - component: {fileID: 783937436}
   - component: {fileID: 783937435}
   - component: {fileID: 783937438}
-  - component: {fileID: 783937439}
   m_Layer: 0
   m_Name: enemy
   m_TagString: Untagged
@@ -631,7 +610,7 @@ MonoBehaviour:
   mMotionHint: 1
   mTrackingOptimization: 0
   mTrackingOptimizationNeedsUpgrade: 0
-  mPreview: {fileID: 783937439}
+  mPreview: {fileID: 0}
 --- !u!4 &783937437
 Transform:
   m_ObjectHideFlags: 0
@@ -659,27 +638,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2af2fd9a8baf31438a606cd34a05247, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DistanceCalculator
+  m_EditorClassIdentifier: '::'
   targetObject: {fileID: 562322866}
---- !u!114 &783937439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783937434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1778676317, guid: 8a9a760f95896c34689febc965510927, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Vuforia.Unity.Engine.dll::Vuforia.ImageTargetPreview
-  mObserverBehaviour: {fileID: 783937436}
-  mHiddenRoot: {fileID: 0}
-  mTargetName: plains_kamigawa_full_art
-  mDatasetName: 
-  mCastedBehaviour: {fileID: 783937436}
-  mMeshFilter: {fileID: 0}
-  mMeshRenderer: {fileID: 0}
 --- !u!1 &783958999 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4099834385841266296, guid: 965a2dfaedd1a4225a64eeae60e78b91, type: 3}
