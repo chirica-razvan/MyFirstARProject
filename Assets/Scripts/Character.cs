@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour
 {
     private Animator mAnimator;
-    public int hp = 100;
+    private int hp = 100;
     private bool attackInProgress = false;
+    [SerializeField] HealthBar healthBar;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,8 +38,14 @@ public class Character : MonoBehaviour
     {
         Character targetScript = target.GetComponent<Character>();
         while (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack"))
-            targetScript.hp -= 1;
+            targetScript.TakeDamage(1);
 
         attackInProgress = false;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        hp -= amount;
+        healthBar.UpdateHealthbar(hp);
     }
 }
