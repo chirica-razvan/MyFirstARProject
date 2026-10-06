@@ -19,6 +19,6 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthbar(int hp)
     {
-        _slider.value = hp/100;
+        _slider.value = (float)hp/100;
     }
 }

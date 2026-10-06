@@ -25,6 +25,7 @@ public class Character : MonoBehaviour
         if(!attackInProgress)
         {
             attackInProgress = true;
+            this.transform.LookAt(target.transform);
             StartCoroutine(AttackRoutine(target));
         }
     }
@@ -38,13 +39,8 @@ public class Character : MonoBehaviour
         yield return null; 
 
         // Wait until we are firmly in the Attack state
-        while (!mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) 
-        {
-            yield return null;
-        }
-
-        // Wait until the animation is 70% complete (the sweet spot for the hit)
-        while (mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
+        while (!mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")&& 
+               !mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack")) 
         {
             yield return null;
         }
@@ -55,20 +51,10 @@ public class Character : MonoBehaviour
             target.TakeDamage(20);
         }
 
-        // Wait until the animation completely finishes
-        while (mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        while (!mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Default"))
         {
             yield return null;
         }
-
-        attackInProgress = false;
-    }
-    
-    void DealDamage(Character target)
-    {
-        Character targetScript = target.GetComponent<Character>();
-        while (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack"))
-            targetScript.TakeDamage(1);
 
         attackInProgress = false;
     }
