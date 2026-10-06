@@ -1,22 +1,51 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour
 {
     private Animator mAnimator;
-    [SerializeField] private int secondsFromStart = 0;
+    private int hp = 100;
+    private bool attackInProgress = false;
+    [SerializeField] HealthBar healthBar;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         mAnimator = GetComponent<Animator>();
-        mAnimator.SetTrigger("Attack");
     }
 
     // Update is called once per frame
     void Update()
     { 
-        if(mAnimator!=null)
-            if(Input.GetKeyDown(KeyCode.Space))
+        
+    }
+
+    void MakeAttack(GameObject target)
+    {
+        if(!attackInProgress)
+            if (mAnimator != null)
+            {
+                attackInProgress = true;
                 mAnimator.SetTrigger("Attack");
+            }
+
+        DealDamage(target);
+    }
+
+    void DealDamage(GameObject target)
+    {
+        Character targetScript = target.GetComponent<Character>();
+        while (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack"))
+            targetScript.TakeDamage(1);
+
+        attackInProgress = false;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        hp -= amount;
+        healthBar.UpdateHealthbar(hp);
     }
 }
