@@ -22,7 +22,7 @@ public class DistanceScript : MonoBehaviour
             {
                 otherDistanceScripts.Add(script);
             }
-            Debug.Log($"Obiectul [{gameObject.name}] a gasit {otherDistanceScripts.Count} alte obiecte în scena.");
+            Debug.Log($"Obiectul [{gameObject.name}] a gasit {otherDistanceScripts.Count} alte obiecte ï¿½n scena.");
         }
     }
 
@@ -57,7 +57,7 @@ public class DistanceScript : MonoBehaviour
             {
                 Debug.Log("ATACA BAI!!!!");
                 Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distanceToCurrentTarget} de obiectul [{targetObject.gameObject.name}]");
-                //character.MakeAttack();
+                character.MakeAttack(currentTarget.GetComponentInChildren<Character>());
             }
         }
 

@@ -1,13 +1,11 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour
 {
     private Animator mAnimator;
     private int hp = 100;
-    private bool attackInProgress = false;
+    private volatile bool attackInProgress = false;
     [SerializeField] HealthBar healthBar;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,19 +20,51 @@ public class Character : MonoBehaviour
         
     }
 
-    void MakeAttack(GameObject target)
+    public void MakeAttack(Character target)
     {
         if(!attackInProgress)
-            if (mAnimator != null)
-            {
-                attackInProgress = true;
-                mAnimator.SetTrigger("Attack");
-            }
-
-        DealDamage(target);
+        {
+            attackInProgress = true;
+            StartCoroutine(AttackRoutine(target));
+        }
     }
+    
+    private IEnumerator AttackRoutine(Character target)
+    {
+        attackInProgress = true;
+        mAnimator.SetTrigger("Attack");
 
-    void DealDamage(GameObject target)
+        // Wait one frame to let the trigger register and start transitioning
+        yield return null; 
+
+        // Wait until we are firmly in the Attack state
+        while (!mAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) 
+        {
+            yield return null;
+        }
+
+        // Wait until the animation is 70% complete (the sweet spot for the hit)
+        while (mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.7f)
+        {
+            yield return null;
+        }
+
+        // Deal Damage once
+        if (target != null) 
+        {
+            target.TakeDamage(20);
+        }
+
+        // Wait until the animation completely finishes
+        while (mAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        attackInProgress = false;
+    }
+    
+    void DealDamage(Character target)
     {
         Character targetScript = target.GetComponent<Character>();
         while (mAnimator.GetCurrentAnimatorStateInfo(0).IsName("FinishAttack"))
