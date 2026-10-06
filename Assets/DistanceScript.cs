@@ -53,10 +53,10 @@ public class DistanceScript : MonoBehaviour
             //float distance = Vector3.Distance(transform.position, targetObject.position);
             //Debug.Log("Distance to target object: " + distance);
 
-            if (distanceToCurrentTarget < 0.22)
+            if (distanceToCurrentTarget < 0.22f)
             {
                 Debug.Log("ATACA BAI!!!!");
-                Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distance} de obiectul [{targetObject.gameObject.name}]");
+                Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distanceToCurrentTarget} de obiectul [{targetObject.gameObject.name}]");
                 //character.MakeAttack();
             }
         }
