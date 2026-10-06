@@ -1,9 +1,11 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class DistanceCalculator : MonoBehaviour
+public class DistanceScript : MonoBehaviour
 {
-    public Transform targetObject;
     private Character character;
+    private List<DistanceScript> otherDistanceScripts = new List<DistanceScript>();
     void Start()
     {
         character = GetComponentInChildren<Character>();
@@ -12,20 +14,50 @@ public class DistanceCalculator : MonoBehaviour
         {
             Debug.LogWarning("Nu am gasit script-ul character");
         }
+
+        DistanceScript[] allScripts = FindObjectsByType<DistanceScript>(FindObjectsSortMode.None);
+
+        foreach (DistanceScript script in allScripts) {
+            if (script != this)
+            {
+                otherDistanceScripts.Add(script);
+            }
+            Debug.Log($"Obiectul [{gameObject.name}] a gasit {otherDistanceScripts.Count} alte obiecte în scena.");
+        }
     }
 
+    float distance;
+    private Transform targetObject;
     // Update is called once per frame
     void Update()
     {
-        if(targetObject != null)
+        float distanceToCurrentTarget = Mathf.Infinity;
+        Transform currentTarget = null;
+        foreach (DistanceScript script in otherDistanceScripts)
         {
-            float distance = Vector3.Distance(transform.position, targetObject.position);
+            if (script != null)
+            {
+                targetObject = script.transform;
+                distance = Vector3.Distance(transform.position, targetObject.position);
+                if(distance < 0.22 && distance < distanceToCurrentTarget)
+                {
+                    currentTarget = targetObject;
+                    distanceToCurrentTarget = distance;
+                    //Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distance} de obiectul [{targetObject.gameObject.name}]");
+                }
+            }
+        }
+
+        if (currentTarget != null)
+        {
+            //float distance = Vector3.Distance(transform.position, targetObject.position);
             //Debug.Log("Distance to target object: " + distance);
 
-            if (distance < 0.22)
+            if (distanceToCurrentTarget < 0.22)
             {
                 Debug.Log("ATACA BAI!!!!");
-                character.MakeAttack();
+                Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distance} de obiectul [{targetObject.gameObject.name}]");
+                //character.MakeAttack();
             }
         }
 
