@@ -4,7 +4,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private Animator mAnimator;
-    private int hp = 100;
+    public int hp = 100;
     private volatile bool attackInProgress = false;
     [SerializeField] HealthBar healthBar;
     
@@ -17,12 +17,34 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        
+        if(hp <= 0)
+        {
+            hp = 100;
+            attackInProgress = false;
+            healthBar.UpdateHealthbar(hp);
+            this.gameObject.SetActive(false);
+            transform.parent.Find("Skull").gameObject.SetActive(true);
+        }
+
+    }
+    private void OnEnable()
+    {
+        attackInProgress = false;
+
+        if (mAnimator == null)
+            mAnimator = GetComponent<Animator>();
+
+        mAnimator.ResetTrigger("Attack");
+        mAnimator.Rebind();
+        mAnimator.Update(0f);
     }
 
     public void MakeAttack(Character target)
     {
-        if(!attackInProgress)
+        if (attackInProgress || target == null || !target.gameObject.activeInHierarchy)
+            return;
+
+        if (!attackInProgress)
         {
             attackInProgress = true;
             this.transform.LookAt(target.transform);

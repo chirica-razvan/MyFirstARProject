@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class DistanceScript : MonoBehaviour
 {
     private Character character;
-    private List<DistanceScript> otherDistanceScripts = new List<DistanceScript>();
-    void Start()
+    private HashSet<DistanceScript> otherDistanceScripts = new HashSet<DistanceScript>();
+
+    private void findOtherScripts()
     {
         character = GetComponentInChildren<Character>();
 
@@ -17,13 +18,19 @@ public class DistanceScript : MonoBehaviour
 
         DistanceScript[] allScripts = FindObjectsByType<DistanceScript>(FindObjectsSortMode.None);
 
-        foreach (DistanceScript script in allScripts) {
+        foreach (DistanceScript script in allScripts)
+        {
             if (script != this)
             {
                 otherDistanceScripts.Add(script);
             }
             Debug.Log($"Obiectul [{gameObject.name}] a gasit {otherDistanceScripts.Count} alte obiecte �n scena.");
         }
+    }
+
+    void Start()
+    {
+        findOtherScripts();
     }
 
     float distance;
@@ -52,12 +59,12 @@ public class DistanceScript : MonoBehaviour
         {
             //float distance = Vector3.Distance(transform.position, targetObject.position);
             //Debug.Log("Distance to target object: " + distance);
-
-            if (distanceToCurrentTarget < 0.22f)
+            Character targetChar = currentTarget.GetComponentInChildren<Character>();
+            if (distanceToCurrentTarget < 0.22f && targetChar != null && targetChar.gameObject.activeInHierarchy)
             {
                 Debug.Log("ATACA BAI!!!!");
                 Debug.Log($"Obiectul [{gameObject.name}] este la o distanta de {distanceToCurrentTarget} de obiectul [{targetObject.gameObject.name}]");
-                character.MakeAttack(currentTarget.GetComponentInChildren<Character>());
+                character.MakeAttack(targetChar);
             }
         }
 
