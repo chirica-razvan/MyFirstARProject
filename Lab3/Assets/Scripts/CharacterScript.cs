@@ -7,6 +7,7 @@ public class CharacterScript : MonoBehaviour
     private GameManager gameManagerScript;
     Vector3 originalPosition;
     private Rigidbody rb;
+    [SerializeField] private ParticleSystem particles;
     void Start()
     {
         gameManagerScript = gameManager.GetComponent<GameManager>();
@@ -26,6 +27,7 @@ public class CharacterScript : MonoBehaviour
         {
             if (gameManager != null)
             {
+                Instantiate(particles, transform.position, Quaternion.identity);
                 gameManagerScript.targetMissed();
             }
         }

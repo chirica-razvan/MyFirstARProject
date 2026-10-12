@@ -5,6 +5,7 @@ public class BallScript : MonoBehaviour
     [SerializeField] public GameObject gameManager;
     private GameManager gameManagerScript;
     public bool isActive = true;
+    [SerializeField] private ParticleSystem particles;
     void Start()
     {
         gameManagerScript = gameManager.GetComponent<GameManager>();
@@ -24,8 +25,10 @@ public class BallScript : MonoBehaviour
         {
             if (gameManager != null)
             {
+                Instantiate(particles, transform.position, Quaternion.identity);
                 gameManagerScript.targetHit();
             }
         }
+        
     }
 }
