@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -8,13 +9,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject character;
     private CharacterScript characterScript;
     private BallScript ballScript;
+    [SerializeField] private TextMeshProUGUI textBox;
+    private int score = 0;
 
     void Start()
     {
         characterScript = character.GetComponent<CharacterScript>();
         ballScript = targetBall.GetComponent<BallScript>();
         spawnTargetBall();
-
+        
     }
 
     void Update()
@@ -59,7 +62,8 @@ public class GameManager : MonoBehaviour
     public void targetHit()
     {
         destroyTarget();
-        // UIScript.updateScore();
+        score += 1;
+        textBox.text = $"Score:{score.ToString()}";
 
         StartCoroutine(waitThenResetScene());
     }
@@ -72,7 +76,6 @@ public class GameManager : MonoBehaviour
 
     void resetScene()
     {
-        //characterScript.resetCharacter();
         spawnTargetBall();
     }
 

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
@@ -5,10 +6,13 @@ public class CharacterScript : MonoBehaviour
     [SerializeField] public GameObject gameManager;
     private GameManager gameManagerScript;
     Vector3 originalPosition;
+    private Rigidbody rb;
     void Start()
     {
         gameManagerScript = gameManager.GetComponent<GameManager>();
         originalPosition = transform.position;
+        
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -30,5 +34,6 @@ public class CharacterScript : MonoBehaviour
     public void resetCharacterPosition()
     {
         transform.position = originalPosition;
+        rb.linearVelocity = Vector3.zero;
     }
 }
